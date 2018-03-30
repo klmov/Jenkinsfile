@@ -24,6 +24,7 @@ def NexusPush(myfile, artfname){
   def downFile = new DataOutputStream(conn.outputStream)
   downFile.write(myfile.getBytes())
   downFile.close()
+  println conn.responseCode
 }
 
 
