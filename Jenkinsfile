@@ -8,7 +8,7 @@ def gradle(c) {
     }
 }
 def NexusPull(artefactName){
-  sh "pwd"
+  sh "PATHH=$(pwd)"
   repository = "Maven_Artefacts"
   groupId = "Artefacts"
   artefName = "pipeline"
@@ -19,7 +19,7 @@ def NexusPull(artefactName){
   conn.setRequestProperty( "Authorization", "Basic ${authString}")
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   def downFile = new DataOutputStream(conn.outputStream)
-  downFile.write(new File (artefactName).getBytes())
+  downFile.write(new File ("${PATHH+artefactName}").getBytes())
   downFile.close()
   println http.responseCode
 }
@@ -49,7 +49,7 @@ node("${SLAVE}") {
   stage ('Packaging and Publishing results'){
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
-    sh "pwd"
+    sh "pwdl"
     NexusPull(artfname)
     archiveArtifacts artfname
   }
