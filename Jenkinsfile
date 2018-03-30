@@ -19,8 +19,6 @@ def NexusPull(artefactName){
   conn.setRequestProperty( "Authorization", "Basic ${authString}")
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   def downFile = new DataOutputStream(conn.outputStream)
-  sh "pwd"
-  sh "ll"
   downFile.write(new File ("${artefactName}").getBytes())
   downFile.close()
   println http.responseCode
@@ -52,7 +50,9 @@ node("${SLAVE}") {
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
     sh "pwd"
-    NexusPull(artfname)
+    script {
+      NexusPull(artfname)
+    }
     archiveArtifacts artfname
   }
   stage ('Asking for manual approval'){
