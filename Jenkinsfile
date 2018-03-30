@@ -56,7 +56,7 @@ node("${SLAVE}") {
       def filess = findFiles '/*.tar.gz'
       println "h3"
       println filess
-      downFile.write(filess.getBytes())
+      downFile.write(filess[0].getBytes())
       println "hi3"
       downFile.close()
     }
