@@ -54,9 +54,11 @@ node("${SLAVE}") {
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
     //def RD = readFile file: "${artfname}"
-    def RD = new hudson.FilePath(Jenkins.getInstance().getComputer(env['NODE_NAME']).getChannel(), artfname);
-    NexusPush(RD, artfname)
-    archiveArtifacts "${artfname}"
+    script{
+      def RD = new hudson.FilePath(Jenkins.getInstance().getComputer(env['NODE_NAME']).getChannel(), artfname);
+      NexusPush(RD, artfname)
+      archiveArtifacts "${artfname}"
+    }
   }
   stage ('Asking for manual approval'){
 
