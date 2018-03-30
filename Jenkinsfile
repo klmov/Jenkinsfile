@@ -50,7 +50,6 @@ node("${SLAVE}") {
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
     def RD = readfile artfname
     NexusPush(RD)
-    }
     archiveArtifacts artfname
   }
   stage ('Asking for manual approval'){
