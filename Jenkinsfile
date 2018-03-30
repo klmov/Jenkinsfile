@@ -8,23 +8,8 @@ def gradle(c) {
     }
 }
 def artfname = "pipeline-${STUDENT_NAME}-${BUILD_NUMBER}.tar.gz"
-def NexusPush(myfile, artfname){
-  def repository = "Maven_Artefacts"
-  def groupId = "Artefacts"
-  def artefName = "hello"
-  //def addr = "http://EPBYMINW2033.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/${BUILD_NUMBER}/${artfname}"
-  def addr = "http://EPBYMINW1766.minsk.epam.com:8081/repository/artifact-repo/aa/bb/${BUILD_NUMBER}/${artfname}"
-  println addr
-  def authString = "YWRtaW46YWRtaW4xMjM=" //Not really safe :(
-  def conn = addr.toURL().openConnection()
-  conn.setDoOutput(true);
-  conn.setRequestMethod("PUT")
-  conn.setRequestProperty( "Authorization", "Basic ${authString}")
-  conn.setRequestProperty("Content-Type", "application/x-gzip")
-  def downFile = new DataOutputStream(conn.outputStream)
-  downFile.write(new File ("${WORKSPACE}/${artfname}").getBytes())
-  downFile.close()
-  println conn.responseCode
+def NexusPush(vers, artfname){
+  return sh "groovy nexus.groovy push ${BUILD_NUMBER} ${artfname}"
 }
 
 
@@ -53,12 +38,8 @@ node("${SLAVE}") {
   stage ('Packaging and Publishing results'){
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
-    //def RD = readFile file: "${artfname}"
-    script{
-      def RD = new hudson.FilePath(Jenkins.getInstance().getComputer(env['NODE_NAME']).getChannel(), artfname);
-      NexusPush(RD, artfname)
-      archiveArtifacts "${artfname}"
-    }
+    NexusPush("${BUILD_NUMBER}", artfname)
+    archiveArtifacts "${artfname}"
   }
   stage ('Asking for manual approval'){
     input 'Deploy?'
