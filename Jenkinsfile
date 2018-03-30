@@ -6,6 +6,9 @@ def gradle(c) {
         sh "gradle ${c}"
     }
 }
+def NexusPull(artefact){
+  
+}
 
 node("${SLAVE}") {
   echo "Hello MNT-Lab"
@@ -26,7 +29,6 @@ node("${SLAVE}") {
   stage ('Triggering job and fetching artefact after finishing'){
     build job: JOB_NAME, parameters: [[$class: 'StringParameterValue', name: 'BRANCH_NAME', value: STUDENT_NAME]]
     copyArtifacts filter: '*.tar.gz', fingerprintArtifacts: true, projectName: JOB_NAME, selector: lastSuccessful()
-    sh 'pwd'
   }
   stage ('Packaging and Publishing results'){
 
