@@ -21,6 +21,7 @@ def NexusPull(artefactName){
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   def downFile = new DataOutputStream(conn.outputStream)
   def filess = findFiles(glob: '*.tar.gz')
+  println filess
   downFile.write(filess.getBytes())
   downFile.close()
 }
