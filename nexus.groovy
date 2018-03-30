@@ -6,6 +6,7 @@ def groupId = "Artefacts"
 def artefName = "pipeline"
 def version = args[1]
 def NEXUS_URL = "http://EPBYMINW2033.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/${version}/${fileName}"
+println NEXUS_URL
 def fileName = args[2]
 if (args[0] == 'pull'){
     new File("download-${rev}.tar.gz").withOutputStream { out ->
