@@ -7,8 +7,20 @@ def gradle(c) {
         sh "gradle ${c}"
     }
 }
-def NexusPull(artefactName){
-
+def NexusPush(myfile){
+  def repository = "Maven_Artefacts"
+  def groupId = "Artefacts"
+  def artefName = "pipeline"
+  def addr = "http://EPBYMINW2033.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/${BUILD_NUMBER}/${artfname}"
+  def authString = "YWRtaW46YWRtaW4xMjM=" //Not really safe :(
+  def conn = addr.toURL().openConnection()
+  conn.setDoOutput(true);
+  conn.setRequestMethod("POST")
+  conn.setRequestProperty( "Authorization", "Basic ${authString}")
+  conn.setRequestProperty("Content-Type", "application/x-gzip")
+  def downFile = new DataOutputStream(conn.outputStream)
+  downFile.write(myfile)
+  downFile.close()
 }
 def artfname = "pipeline-${STUDENT_NAME}-${BUILD_NUMBER}.tar.gz"
 
@@ -37,23 +49,8 @@ node("${SLAVE}") {
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
     script{
-      def BUILD = "${BUILD_NUMBER}"
-      println BUILD
-      def repository = "Maven_Artefacts"
-      def groupId = "Artefacts"
-      def artefName = "pipeline"
-      def addr = "http://EPBYMINW2033.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/${BUILD}/${artfname}"
-      println addr
-      def authString = "YWRtaW46YWRtaW4xMjM=" //Not really safe :(
-      def conn = addr.toURL().openConnection()
-      conn.setDoOutput(true);
-      conn.setRequestMethod("POST")
-      conn.setRequestProperty( "Authorization", "Basic ${authString}")
-      conn.setRequestProperty("Content-Type", "application/x-gzip")
-      def downFile = new DataOutputStream(conn.outputStream)
-      def Ttt = readFile("pipeline-kklimov-${BUILD}.tar.gz")
-      downFile.write(Ttt)
-      downFile.close()
+     def RD = readfile artefact
+     NexusPush(RD)
     }
     archiveArtifacts artfname
   }
