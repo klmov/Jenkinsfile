@@ -8,6 +8,7 @@ def gradle(c) {
     }
 }
 def NexusPull(artefactName){
+  sh "pwd"
   repository = "Maven_Artefacts"
   groupId = "Artefacts"
   artefName = "pipeline"
@@ -48,6 +49,7 @@ node("${SLAVE}") {
   stage ('Packaging and Publishing results'){
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
+    sh "pwd"
     NexusPull(artfname)
     archiveArtifacts artfname
   }
