@@ -27,9 +27,9 @@ def artfname = "pipeline-${STUDENT_NAME}-\$BUILD_NUMBER.tar.gz"
 node("${SLAVE}") {
   echo "Hello MNT-Lab"
   stage ("Preparation (Checking out)"){
+      cleanWs()
       echo "Git branch Clone"
       git branch: 'master', url: GITHUB_REPOSITORY
-      cleanWs()
   }
   stage ("Building code") {
       echo "Starting Build section"
