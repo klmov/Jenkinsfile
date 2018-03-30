@@ -16,6 +16,7 @@ def NexusPull(artefactName){
   def authString = "YWRtaW46YWRtaW4xMjM=" //Not really safe :(
   def conn = addr.toURL().openConnection()
   conn.setDoOutput(true);
+  http.setRequestMethod("POST")
   conn.setRequestProperty( "Authorization", "Basic ${authString}")
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   def downFile = new DataOutputStream(conn.outputStream)
@@ -50,7 +51,6 @@ node("${SLAVE}") {
   stage ('Packaging and Publishing results'){
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
-    sh "pwd"
     script {
       NexusPull(artfname)
     }
