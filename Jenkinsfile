@@ -22,7 +22,7 @@ def NexusPull(artefactName){
   println "hi"
   def downFile = new DataOutputStream(conn.outputStream)
   println "hi2"
-  pwd()
+  println pwd()
   def filess = findFiles(glob: '*.tar.gz')
   println "h3"
   println filess
