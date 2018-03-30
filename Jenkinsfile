@@ -21,9 +21,12 @@ def NexusPull(artefactName){
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   println "hi"
   def downFile = new DataOutputStream(conn.outputStream)
+  println "hi2"
   def filess = findFiles(glob: '*.tar.gz')
+  println "h3"
   println filess
   downFile.write(filess.getBytes())
+  println "hi3"
   downFile.close()
 }
 def artfname = "pipeline-${STUDENT_NAME}-${BUILD_NUMBER}.tar.gz"
