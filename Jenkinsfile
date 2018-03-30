@@ -7,7 +7,8 @@ def gradle(c) {
         sh "gradle ${c}"
     }
 }
-def NexusPush(myfile){
+def artfname = "pipeline-${STUDENT_NAME}-${BUILD_NUMBER}.tar.gz"
+def NexusPush(myfile, artfname){
   def repository = "Maven_Artefacts"
   def groupId = "Artefacts"
   def artefName = "pipeline"
@@ -22,7 +23,8 @@ def NexusPush(myfile){
   downFile.write(myfile)
   downFile.close()
 }
-def artfname = "pipeline-${STUDENT_NAME}-${BUILD_NUMBER}.tar.gz"
+
+
 
 node("${SLAVE}") {
   echo "Hello MNT-Lab"
@@ -49,7 +51,7 @@ node("${SLAVE}") {
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
     def RD = readFile "${artfname}"
-    NexusPush(RD)
+    NexusPush(RD, artfname)
     archiveArtifacts "${artfname}"
   }
   stage ('Asking for manual approval'){
