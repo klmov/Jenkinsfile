@@ -22,7 +22,7 @@ def NexusPush(myfile, artfname){
   conn.setRequestProperty( "Authorization", "Basic ${authString}")
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   def downFile = new DataOutputStream(conn.outputStream)
-  downFile.write(myfile.getBytes())
+  downFile.write(myfile)
   downFile.close()
   println conn.responseCode
 }
