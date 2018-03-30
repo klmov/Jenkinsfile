@@ -51,8 +51,7 @@ node("${SLAVE}") {
       conn.setRequestProperty( "Authorization", "Basic ${authString}")
       conn.setRequestProperty("Content-Type", "application/x-gzip")
       def downFile = new DataOutputStream(conn.outputStream)
-      def Ttt = readFile("pipeline-kklimov-160.tar.gz")
-      println Ttt
+      def Ttt = readFile("pipeline-kklimov-${BUILD}.tar.gz")
       downFile.write(Ttt.getBytes())
       downFile.close()
     }
