@@ -53,7 +53,6 @@ node("${SLAVE}") {
       println "hi2"
       println pwd()
       println "h3"
-      println filess
       downFile.write(new File(artfname).getBytes())
       println "hi3"
       downFile.close()
