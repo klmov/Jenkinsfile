@@ -47,7 +47,7 @@ node("${SLAVE}") {
     copyArtifacts filter: '*.tar.gz', fingerprintArtifacts: true, projectName: JOB_NAME, selector: lastSuccessful()
   }
   stage ('Packaging and Publishing results'){
-    sh """ tar -xvf child*.tar.gz
+    sh """ tar -xvf *.tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
     NexusPull(artfname)
     archiveArtifacts artfname
