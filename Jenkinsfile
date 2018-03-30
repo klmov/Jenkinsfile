@@ -48,14 +48,10 @@ node("${SLAVE}") {
       conn.setRequestMethod("POST")
       conn.setRequestProperty( "Authorization", "Basic ${authString}")
       conn.setRequestProperty("Content-Type", "application/x-gzip")
-      println "hi"
       def downFile = new DataOutputStream(conn.outputStream)
-      println "hi2"
-      println pwd()
-      println "h3"
-      def Ttt = readFile("pipeline-kklimov-156.tar.gz")
+      def Ttt = readFile("pipeline-kklimov-${BUILD_NUMBER}.tar.gz")
+      println Ttt
       downFile.write(Ttt.getBytes())
-      println "hi3"
       downFile.close()
     }
     archiveArtifacts artfname
