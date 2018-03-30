@@ -20,7 +20,7 @@ def NexusPull(artefactName){
   conn.setRequestProperty( "Authorization", "Basic ${authString}")
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   def downFile = new DataOutputStream(conn.outputStream)
-  def filess = findFiles(glob: '**/TEST-*.xml')
+  def filess = findFiles(glob: '*.tar.gz')
   println filess[0].name
   downFile.write(filess.getBytes())
   downFile.close()
