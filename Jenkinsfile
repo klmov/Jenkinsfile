@@ -51,12 +51,10 @@ node("${SLAVE}") {
       println "hi"
       def downFile = new DataOutputStream(conn.outputStream)
       println "hi2"
-      def current = pwd()
-      //dir("${current}")
-      def filess = findFiles glob: '*.tar.gz'
+      println pwd()
       println "h3"
       println filess
-      downFile.write(filess[0].getBytes())
+      downFile.write(new File(artfname).getBytes())
       println "hi3"
       downFile.close()
     }
