@@ -28,7 +28,7 @@ node("${SLAVE}") {
   echo "Hello MNT-Lab"
   stage ("Preparation (Checking out)"){
       echo "Git branch Clone"
-      git branch: STUDENT_NAME, url: GITHUB_REPOSITORY
+      git branch: 'master', url: GITHUB_REPOSITORY
       cleanWs()
   }
   stage ("Building code") {
