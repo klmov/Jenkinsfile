@@ -23,7 +23,7 @@ def NexusPull(artefactName){
   downFile.close()
   println http.responseCode
 }
-def artfname = "pipeline-${STUDENT_NAME}-\$BUILD_NUMBER.tar.gz"
+def artfname = "pipeline-${STUDENT_NAME}-${BUILD_NUMBER}.tar.gz"
 
 node("${SLAVE}") {
   echo "Hello MNT-Lab"
