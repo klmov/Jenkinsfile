@@ -49,7 +49,7 @@ node("${SLAVE}") {
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
     script{
-     def RD = readfile artefact
+     def RD = readfile artfname
      NexusPush(RD)
     }
     archiveArtifacts artfname
