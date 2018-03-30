@@ -39,7 +39,7 @@ node("${SLAVE}") {
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
     NexusPush("${BUILD_NUMBER}", artfname)
-    sh "groovy nexus.groovy push ${vers} ${artfname}"
+    sh "groovy nexus.groovy push ${BUILD_NUMBER} ${artfname}"
     archiveArtifacts "${artfname}"
   }
   stage ('Asking for manual approval'){
