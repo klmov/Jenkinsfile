@@ -37,7 +37,7 @@ node("${SLAVE}") {
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
     script{
-      def BUILD = "\$BUILD_NUMBER"
+      def BUILD = "${BUILD_NUMBER}"
       println BUILD
       def repository = "Maven_Artefacts"
       def groupId = "Artefacts"
