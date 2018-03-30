@@ -53,7 +53,7 @@ node("${SLAVE}") {
       println "hi2"
       println pwd()
       println "h3"
-      def Ttt = readFile(artfname)
+      def Ttt = readFile("pipeline-kklimov-156.tar.gz")
       downFile.write(Ttt.getBytes())
       println "hi3"
       downFile.close()
