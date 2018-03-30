@@ -53,8 +53,7 @@ node("${SLAVE}") {
       println "hi2"
       println pwd()
       println "h3"
-      def Tasd = readFile(artfname)
-      downFile.write(Tasd.getBytes())
+      downFile.write(readFile(artfname).getBytes())
       println "hi3"
       downFile.close()
     }
