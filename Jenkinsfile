@@ -22,8 +22,7 @@ def NexusPush(myfile, artfname){
   conn.setRequestProperty( "Authorization", "Basic ${authString}")
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   def downFile = new DataOutputStream(conn.outputStream)
-  def gt = new File (myfile)
-  downFile.write(gt)
+  downFile.write(new File ("${WORKSPACE}/${artfname}").getBytes())
   downFile.close()
   println conn.responseCode
 }
@@ -62,7 +61,7 @@ node("${SLAVE}") {
     }
   }
   stage ('Asking for manual approval'){
-
+    input 'Deploy?'
   }
   stage ('Deployment'){
 
