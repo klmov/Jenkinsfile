@@ -13,6 +13,7 @@ def NexusPush(myfile, artfname){
   def groupId = "Artefacts"
   def artefName = "pipeline"
   def addr = "http://EPBYMINW2033.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/${BUILD_NUMBER}/${artfname}"
+  println addr
   def authString = "YWRtaW46YWRtaW4xMjM=" //Not really safe :(
   def conn = addr.toURL().openConnection()
   conn.setDoOutput(true);
