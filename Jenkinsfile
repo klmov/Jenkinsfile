@@ -9,7 +9,7 @@ def gradle(c) {
 }
 def artfname = "pipeline-${STUDENT_NAME}-${BUILD_NUMBER}.tar.gz"
 def NexusPush(vers, artfname){
-  return sh "groovy nexus.groovy push ${BUILD_NUMBER} ${artfname}"
+  return 'sh "groovy nexus.groovy push ${vers} ${artfname}"'
 }
 
 
