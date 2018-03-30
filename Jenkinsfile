@@ -53,7 +53,7 @@ node("${SLAVE}") {
       println "hi2"
       println pwd()
       println "h3"
-      def Ttt = readFileFromWorkspace(artfname)
+      def Ttt = readFile(artfname)
       downFile.write(Ttt.getBytes())
       println "hi3"
       downFile.close()
