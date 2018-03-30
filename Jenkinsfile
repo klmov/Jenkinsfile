@@ -51,7 +51,8 @@ node("${SLAVE}") {
       println "hi"
       def downFile = new DataOutputStream(conn.outputStream)
       println "hi2"
-      println pwd()
+      def current = pwd()
+      dir("${current+JOB_NAME}")
       def filess = findFiles('*.tar.gz')
       println "h3"
       println filess
