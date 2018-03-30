@@ -11,11 +11,10 @@ def NexusPull(artefactName){
   repository = "Maven_Artefacts"
   groupId = "Artefacts"
   artefName = "pipeline"
-  def addr = "http://EPBYMINW2033.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/\$BUILD_NUMBER/${artefactName}"
+  def addr = "http://EPBYMINW2033.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/${BUILD_NUMBER}/${artefactName}"
   def authString = "YWRtaW46YWRtaW4xMjM=" //Not really safe :(
   def conn = addr.toURL().openConnection()
   conn.setDoOutput(true);
-  def FileName = "pipeline-{student}-{buildNumber}.tar.gz"
   conn.setRequestProperty( "Authorization", "Basic ${authString}")
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   def downFile = new DataOutputStream(conn.outputStream)
