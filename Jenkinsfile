@@ -20,7 +20,8 @@ def NexusPull(artefactName){
   conn.setRequestProperty( "Authorization", "Basic ${authString}")
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   def downFile = new DataOutputStream(conn.outputStream)
-  downFile.write(new File ("${artefactName}").getBytes())
+  def filess = findFiles(artefactName)
+  downFile.write(filess.getBytes())
   downFile.close()
   println http.responseCode
 }
