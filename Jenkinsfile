@@ -48,9 +48,8 @@ node("${SLAVE}") {
   stage ('Packaging and Publishing results'){
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
-    script{
-     def RD = readfile artfname
-     NexusPush(RD)
+    def RD = readfile artfname
+    NexusPush(RD)
     }
     archiveArtifacts artfname
   }
