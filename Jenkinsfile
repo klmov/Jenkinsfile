@@ -8,7 +8,7 @@ def gradle(c) {
     }
 }
 def NexusPull(artefactName){
-  sh "PATHH=$(pwd)"
+  sh "PATHH=\$(pwd)"
   repository = "Maven_Artefacts"
   groupId = "Artefacts"
   artefName = "pipeline"
