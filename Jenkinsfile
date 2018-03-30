@@ -11,7 +11,7 @@ def NexusPull(artefactName){
   repository = "Maven_Artefacts"
   groupId = "Artefacts"
   artefName = "pipeline"
-  def addr = "http://EPBYMINW1766.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/\$BUILD_NUMBER/${artefactName}"
+  def addr = "http://EPBYMINW2033.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/\$BUILD_NUMBER/${artefactName}"
   def authString = "YWRtaW46YWRtaW4xMjM=" //Not really safe :(
   def conn = addr.toURL().openConnection()
   def FileName = "pipeline-{student}-{buildNumber}.tar.gz"
