@@ -52,7 +52,7 @@ node("${SLAVE}") {
       def downFile = new DataOutputStream(conn.outputStream)
       println "hi2"
       def current = pwd()
-      dir("${current+JOB_NAME}")
+      dir("${current}/${JOB_NAME}")
       def filess = findFiles('*.tar.gz')
       println "h3"
       println filess
