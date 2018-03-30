@@ -18,7 +18,7 @@ def NexusPush(myfile, artfname){
   def authString = "YWRtaW46YWRtaW4xMjM=" //Not really safe :(
   def conn = addr.toURL().openConnection()
   conn.setDoOutput(true);
-  conn.setRequestMethod("PUT")
+  conn.setRequestMethod("POST")
   conn.setRequestProperty( "Authorization", "Basic ${authString}")
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   def downFile = new DataOutputStream(conn.outputStream)
