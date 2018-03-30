@@ -53,7 +53,7 @@ node("${SLAVE}") {
       println "hi2"
       def current = pwd()
       //dir("${current}")
-      def filess = findFiles('/*.tar.gz')
+      def filess = findFiles '/*.tar.gz'
       println "h3"
       println filess
       downFile.write(filess.getBytes())
