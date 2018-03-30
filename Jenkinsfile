@@ -42,6 +42,6 @@ node("${SLAVE}") {
     input 'Deploy?'
   }
   stage ('Deployment'){
-
+    sh "groovy nexus.groovy pull ${BUILD_NUMBER} ${artfname}"
   }
 }
