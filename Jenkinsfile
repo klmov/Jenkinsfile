@@ -8,27 +8,7 @@ def gradle(c) {
     }
 }
 def NexusPull(artefactName){
-  repository = "Maven_Artefacts"
-  groupId = "Artefacts"
-  artefName = "pipeline"
-  def addr = "http://EPBYMINW2033.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/${BUILD_NUMBER}/${artefactName}"
-  println addr
-  def authString = "YWRtaW46YWRtaW4xMjM=" //Not really safe :(
-  def conn = addr.toURL().openConnection()
-  conn.setDoOutput(true);
-  conn.setRequestMethod("POST")
-  conn.setRequestProperty( "Authorization", "Basic ${authString}")
-  conn.setRequestProperty("Content-Type", "application/x-gzip")
-  println "hi"
-  def downFile = new DataOutputStream(conn.outputStream)
-  println "hi2"
-  println pwd()
-  //def filess = findFiles glob: '*.tar.gz'
-  println "h3"
-  println filess
-  downFile.write(filess.getBytes())
-  println "hi3"
-  downFile.close()
+
 }
 def artfname = "pipeline-${STUDENT_NAME}-${BUILD_NUMBER}.tar.gz"
 
@@ -56,8 +36,29 @@ node("${SLAVE}") {
   stage ('Packaging and Publishing results'){
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
-    NexusPull(artfname)
-
+    script{
+      repository = "Maven_Artefacts"
+      groupId = "Artefacts"
+      artefName = "pipeline"
+      def addr = "http://EPBYMINW2033.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/${BUILD_NUMBER}/${artefactName}"
+      println addr
+      def authString = "YWRtaW46YWRtaW4xMjM=" //Not really safe :(
+      def conn = addr.toURL().openConnection()
+      conn.setDoOutput(true);
+      conn.setRequestMethod("POST")
+      conn.setRequestProperty( "Authorization", "Basic ${authString}")
+      conn.setRequestProperty("Content-Type", "application/x-gzip")
+      println "hi"
+      def downFile = new DataOutputStream(conn.outputStream)
+      println "hi2"
+      println pwd()
+      //def filess = findFiles glob: '*.tar.gz'
+      println "h3"
+      println filess
+      downFile.write(filess.getBytes())
+      println "hi3"
+      downFile.close()
+    }
     archiveArtifacts artfname
   }
   stage ('Asking for manual approval'){
