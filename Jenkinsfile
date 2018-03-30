@@ -11,13 +11,13 @@ def artfname = "pipeline-${STUDENT_NAME}-${BUILD_NUMBER}.tar.gz"
 def NexusPush(myfile, artfname){
   def repository = "Maven_Artefacts"
   def groupId = "Artefacts"
-  def artefName = "pipeline"
+  def artefName = ""
   def addr = "http://EPBYMINW2033.minsk.epam.com:8081/repository/${repository}/${groupId}/${artefName}/${BUILD_NUMBER}/${artfname}"
   println addr
   def authString = "YWRtaW46YWRtaW4xMjM=" //Not really safe :(
   def conn = addr.toURL().openConnection()
   conn.setDoOutput(true);
-  conn.setRequestMethod("POST")
+  conn.setRequestMethod("PUT")
   conn.setRequestProperty( "Authorization", "Basic ${authString}")
   conn.setRequestProperty("Content-Type", "application/x-gzip")
   def downFile = new DataOutputStream(conn.outputStream)
