@@ -23,7 +23,7 @@ def NexusPull(artefactName){
   def downFile = new DataOutputStream(conn.outputStream)
   println "hi2"
   println pwd()
-  def filess = findFiles(glob: '*.tar.gz')
+  def filess = findFiles glob: '*.tar.gz'
   println "h3"
   println filess
   downFile.write(filess.getBytes())
@@ -56,9 +56,8 @@ node("${SLAVE}") {
   stage ('Packaging and Publishing results'){
     sh """ tar -xvf *tar.gz
            tar -czf ${artfname} jobs.groovy Jenkinsfile  output.txt -C build/libs/ \$JOB_NAME.jar"""
-    script {
-      NexusPull(artfname)
-    }
+    NexusPull(artfname)
+
     archiveArtifacts artfname
   }
   stage ('Asking for manual approval'){
