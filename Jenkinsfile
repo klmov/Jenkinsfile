@@ -52,7 +52,7 @@ node("${SLAVE}") {
       conn.setRequestProperty("Content-Type", "application/x-gzip")
       def downFile = new DataOutputStream(conn.outputStream)
       def Ttt = readFile("pipeline-kklimov-${BUILD}.tar.gz")
-      downFile.write(Ttt.getBytes())
+      downFile.write(Ttt)
       downFile.close()
     }
     archiveArtifacts artfname
